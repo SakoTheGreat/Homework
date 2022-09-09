@@ -24,10 +24,8 @@ def main(age):
     
     try:
       # Попытка принимать и не целые числа, и со знаком минуса=)
-        age = abs(int(float(age)))
-        if age==0:
-            return 'У вас точно там ребенок?'
-        elif 1<=age<7:
+        age = int(age)  
+        if 1<=age<7:
             return 'Да вашему ребенку срочно нужно в садик'
         elif 7<=age<=18:
             return 'Добро пожаловать в самые "лучшие" годы в жизни'
@@ -40,8 +38,5 @@ def main(age):
 
 
 if __name__ == "__main__":
-    main(age)
-
-i_find_for_you_the_best_place = main(age)
-
-print(i_find_for_you_the_best_place)
+    nu_teper_tochno_pravilno = main(age)
+    print(nu_teper_tochno_pravilno)

@@ -20,23 +20,21 @@ def main(first_str, second_str):
     Эта функция вызывается автоматически при запуске скрипта в консоли
     В ней надо заменить pass на ваш код
     """
-    if (type(first_str) is str) and (type(second_str) is str):
-        # Я так и не понял по заданию делать через if или все таки использовать elif 
+    if not ((type(first_str) is str) and (type(second_str) is str)):
+        return 0 
+    else:
         if first_str == second_str:
             return 1
         elif len(first_str) > len(second_str):
             return 2
-        elif first_str != second_str and second_str == 'learn':
+        elif second_str == 'learn':
             return 3
-    else:
-        return 0
 
 
 if __name__ == "__main__":
-    main(first_str='ne', second_str='to')
+    print(main('forofor', 13134))
+    print(main('python', 'python'))
+    print(main('forofor', 'small'))
+    print(main('forof', 'learn'))
 
 
-print(main('forofor', 13134))
-print(main('python', 'python'))
-print(main('forofor', 'small'))
-print(main('forof', 'learn'))

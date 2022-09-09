@@ -24,34 +24,32 @@ spicok_slovarei = [
 
 
 def main(spicok_slovarei):
-    """
-    Эта функция вызывается автоматически при запуске скрипта в консоли
-    В ней надо заменить pass на ваш код
-    """
+    
     sum_product = {}
-    midle_sum_product = {}
+    average_sum_product = {}
     all_sum_products = 0
-    midle_sum_all = 0
+    average_sum_all = 0
     for slovar in spicok_slovarei:
         sum_product[slovar['product']] = sum_product.get(slovar['product'], sum(slovar['items_sold']))
-        midle_sum_product[slovar['product']] = midle_sum_product.get(slovar['product'], int((sum(slovar['items_sold'])/len(slovar['items_sold']))))
+        average_sum_product[slovar['product']] = average_sum_product.get(slovar['product'], int((sum(slovar['items_sold'])/len(slovar['items_sold']))))
 
     for i, j in sum_product.items():
         all_sum_products += j
 
-    for i, j in midle_sum_product.items():    
-        midle_sum_all += j
-    
+    for i, j in average_sum_product.items():    
+        average_sum_all += j
+
+    average_sum_all = int(average_sum_all/3)
+
     return f'''
 Сумма продаж каждого прoдукта по отдельности {sum_product}
-Среднее количество продаж каждого продукта {midle_sum_product}
+Среднее количество продаж каждого продукта {average_sum_product}
 Сумма продаж всех продуктов {all_sum_products}
-Среднее количество продаж каждого продукта {midle_sum_all}'''
+Среднее количество продаж каждого продукта {average_sum_all}'''
 
 if __name__ == "__main__":
-    main(spicok_slovarei=[])
+    return_to_the_basic = main(spicok_slovarei)
+
+    print(return_to_the_basic)
 
 
-return_to_the_basic = main(spicok_slovarei)
-
-print(return_to_the_basic)
