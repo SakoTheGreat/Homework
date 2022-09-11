@@ -16,7 +16,7 @@
 
 import logging
 import ephem
-from datetime import date
+from datetime import datetime 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 
@@ -34,35 +34,16 @@ def greet_user(update, context):
 
 
 def name_planet(update, context):
-    user_text = update.message.text.split()
-    today = date.today().strftime("%Y/%m/%d")
-    planet_name = user_text[1].capitalize()
-  
-    if user_text[0] == '/planet' and len(user_text) < 2:
-        if planet_name == 'Mars':
-            constellationplanet = ephem.constellation(ephem.Mars(today))
-        elif planet_name == 'Jupiter':
-            constellationplanet = ephem.constellation(ephem.Jupiter(today))
-        elif planet_name == 'Saturn':
-            constellationplanet = ephem.constellation(ephem.Saturn(today))
-        elif planet_name == 'Mercury':
-            constellationplanet = ephem.constellation(ephem.Mercury(today))
-        elif planet_name == 'Venus':
-            constellationplanet = ephem.constellation(ephem.Venus(today))
-        elif planet_name == 'Earth':
-            constellationplanet = ephem.constellation(ephem.Earth(today))
-        elif planet_name == 'Uranus':
-            constellationplanet = ephem.constellation(ephem.Uranus(today))
-        elif planet_name == 'Neptune':
-            constellationplanet = ephem.constellation(ephem.Neptune(today))
-        elif planet_name == 'Pluto':
-            constellationplanet = ephem.constellation(ephem.Pluto(today))    
-        else:
-            update.message.reply_text('Unknown planet. Please try again')
-        update.message.reply_text(f'Planete {planet_name} is in {constellationplanet[1]}')
-    else:
-        update.message.reply_text('Unknown command. Please try again')
-        return
+    planet = update.message.text.split()
+    try:
+        planet_ephem = getattr(ephem, planet[1].capitalize())(datetime.now())
+    
+        constellation = ephem.constellation(planet_ephem)
+      
+        text = f"Планета {planet[1].capitalize()} находится в {constellation}"
+    except AttributeError:
+        text = f"Планета {planet[1].capitalize()} не найдена."
+    update.message.reply_text(text)
 
 
 
