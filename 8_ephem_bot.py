@@ -13,7 +13,7 @@
 
 """
 
-
+import secretka
 import logging
 import ephem
 from datetime import datetime 
@@ -27,10 +27,17 @@ logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
 
 
 
-
-
 def greet_user(update, context):
-    update.message.reply_text('Use command "/planet [name]"')
+    text = 'Ну это... /start'
+    print(text)
+    update.message.reply_text(text)
+
+
+def talk_to_me(update, context):
+    user_text = update.message.text
+    print(user_text)
+    update.message.reply_text(user_text)
+
 
 
 def name_planet(update, context):
@@ -50,13 +57,13 @@ def name_planet(update, context):
 
 
 def main():
-    mybot = Updater("5672379591:AAGy1rdE_o0NHnTitJ_J8bqsjKCxeauFS54", use_context=True)
+    mybot = Updater(secretka.da_ja_bi_sam_otdal, use_context=True)
 
     dp = mybot.dispatcher
 
-    dp.start
     dp.add_handler(CommandHandler("start", greet_user))
-    dp.add_handler(MessageHandler(Filters.text, name_planet))
+    dp.add_handler(CommandHandler("planet", name_planet))
+    dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
     mybot.start_polling()
     mybot.idle()
