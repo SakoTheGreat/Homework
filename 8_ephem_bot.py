@@ -41,15 +41,16 @@ def talk_to_me(update, context):
 
 
 def name_planet(update, context):
-    planet = update.message.text.split()
+    commanda_A, planet = update.message.text.split()
     try:
-        planet_ephem = getattr(ephem, planet[1].capitalize())(datetime.now())
-    
-        constellation = ephem.constellation(planet_ephem)
-      
-        text = f"Планета {planet[1].capitalize()} находится в {constellation}"
+        planet_ephem = getattr(ephem, planet.capitalize())(datetime.now())
     except AttributeError:
-        text = f"Планета {planet[1].capitalize()} не найдена."
+        text = f"Планета {planet.capitalize()} не найдена."
+    
+    constellation = ephem.constellation(planet_ephem)
+      
+    text = f"Планета {planet.capitalize()} находится в {constellation}"
+    
     update.message.reply_text(text)
 
 
